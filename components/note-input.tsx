@@ -54,7 +54,7 @@ export function NoteInput({ onAdd, isLoading }: NoteInputProps) {
           <Button
             type="submit"
             disabled={isLoading || text.trim() === ""}
-            className="bg-gradient-to-r from-primary to-accent text-white font-semibold shadow-lg shadow-primary/25 transition-all duration-300 hover:shadow-xl hover:shadow-accent/30 hover:scale-[1.03] hover:brightness-110 active:scale-[0.97] disabled:opacity-50 disabled:shadow-none disabled:hover:scale-100 disabled:hover:brightness-100"
+            className="bg-gradient-to-r from-primary to-accent text-white font-bold shadow-xl shadow-accent/30 ring-1 ring-accent/20 transition-all duration-300 hover:shadow-2xl hover:shadow-accent/40 hover:scale-[1.05] hover:brightness-110 active:scale-[0.97] disabled:opacity-40 disabled:shadow-none disabled:ring-0 disabled:hover:scale-100 disabled:hover:brightness-100"
           >
             {isLoading ? (
               <Loader2 className="mr-1.5 h-4 w-4 animate-spin" />

@@ -147,7 +147,7 @@ export function NoteCard({
                 {createdAt}
               </div>
 
-              <div className="flex items-center gap-1 opacity-0 transition-all duration-300 group-hover:opacity-100">
+              <div className="flex items-center gap-1 transition-all duration-300">
                 <TooltipProvider delayDuration={200}>
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -240,7 +240,7 @@ export function NoteCard({
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-7 w-7 rounded-lg text-muted-foreground transition-all duration-200 hover:scale-110 hover:bg-destructive/15 hover:text-destructive hover:shadow-sm hover:shadow-destructive/20 active:scale-95"
+                        className="h-7 w-7 rounded-lg bg-destructive/15 text-destructive shadow-sm shadow-destructive/10 transition-all duration-200 hover:scale-110 hover:bg-destructive hover:text-destructive-foreground hover:shadow-md hover:shadow-destructive/30 active:scale-95"
                         onClick={() => onDelete(note.id)}
                         aria-label="Delete note"
                       >
