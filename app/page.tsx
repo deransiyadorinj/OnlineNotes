@@ -167,6 +167,7 @@ export default function NotesApp() {
   const handleTogglePin = useCallback(async (id: string, pinned: boolean) => {
     try {
       await updateDoc(doc(db, "notes", id), { pinned });
+      toast.success(pinned ? "Note pinned" : "Note unpinned");
     } catch (error) {
       console.error("Error toggling pin:", error);
       toast.error("Failed to update note");
@@ -177,6 +178,9 @@ export default function NotesApp() {
     async (id: string, important: boolean) => {
       try {
         await updateDoc(doc(db, "notes", id), { important });
+        toast.success(
+          important ? "Marked as important" : "Removed importance"
+        );
       } catch (error) {
         console.error("Error toggling importance:", error);
         toast.error("Failed to update note");
@@ -201,7 +205,7 @@ export default function NotesApp() {
             }`
         )
         .join("\n\n");
-      filename = "online-notes-export.txt";
+      filename = "online-notes.txt";
       mimeType = "text/plain";
     } else {
       content = JSON.stringify(
@@ -216,7 +220,7 @@ export default function NotesApp() {
         null,
         2
       );
-      filename = "online-notes-export.json";
+      filename = "online-notes.json";
       mimeType = "application/json";
     }
 
@@ -230,80 +234,60 @@ export default function NotesApp() {
     toast.success(`Exported as ${format.toUpperCase()}`);
   }
 
-  const pinnedCount = notes.filter((n) => n.pinned).length;
-  const importantCount = notes.filter((n) => n.important).length;
-
   return (
-    <main className="min-h-screen bg-background">
-      <div className="mx-auto max-w-4xl">
-        <AppHeader noteCount={notes.length} isConnected={isConnected} />
+    <main className="flex min-h-screen flex-col bg-background">
+      <AppHeader noteCount={notes.length} isConnected={isConnected} />
 
-        <div className="flex flex-col gap-8 px-4 py-8 sm:px-6">
-          {/* Create Note Section */}
-          <section aria-label="Create a new note">
-            <NoteInput onAdd={handleAddNote} isLoading={addingNote} />
-          </section>
+      <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8">
+        {/* Create Note Section */}
+        <section aria-label="Create a new note">
+          <NoteInput onAdd={handleAddNote} isLoading={addingNote} />
+        </section>
 
-          {/* Notes Section */}
-          <section aria-label="Your notes">
-            {/* Stats bar */}
-            {!loading && notes.length > 0 && (
-              <div className="mb-4 flex items-center gap-3">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <span className="rounded bg-secondary px-2 py-0.5 font-medium text-secondary-foreground">
-                    {notes.length} {notes.length === 1 ? "note" : "notes"}
-                  </span>
-                  {pinnedCount > 0 && (
-                    <span className="rounded bg-primary/10 px-2 py-0.5 font-medium text-primary">
-                      {pinnedCount} pinned
-                    </span>
-                  )}
-                  {importantCount > 0 && (
-                    <span className="rounded bg-amber-500/10 px-2 py-0.5 font-medium text-amber-400">
-                      {importantCount} important
-                    </span>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* Search and Toolbar */}
-            <div className="flex flex-col gap-3">
-              <SearchBar value={search} onChange={setSearch} />
-              <NotesToolbar
-                onDeleteAll={() => setShowDeleteAllDialog(true)}
-                onExport={handleExport}
-                sortMode={sortMode}
-                onSortChange={setSortMode}
-                noteCount={notes.length}
-              />
-            </div>
-
-            {/* Notes Grid */}
-            <div className="mt-5" aria-live="polite">
-              {loading ? (
-                <NoteSkeletonGrid />
-              ) : filteredAndSortedNotes.length === 0 ? (
-                <NotesEmpty hasSearch={search.trim().length > 0} />
-              ) : (
-                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {filteredAndSortedNotes.map((note) => (
-                    <NoteCard
-                      key={note.id}
-                      note={note}
-                      onDelete={handleDeleteNote}
-                      onUpdate={handleUpdateNote}
-                      onTogglePin={handleTogglePin}
-                      onToggleImportant={handleToggleImportant}
-                      isRemoving={removingIds.has(note.id)}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          </section>
+        {/* Search & Toolbar */}
+        <div className="flex flex-col gap-3">
+          <SearchBar value={search} onChange={setSearch} />
+          <NotesToolbar
+            onDeleteAll={() => setShowDeleteAllDialog(true)}
+            onExport={handleExport}
+            sortMode={sortMode}
+            onSortChange={setSortMode}
+            noteCount={notes.length}
+          />
         </div>
+
+        {/* Notes Grid */}
+        <section aria-label="Your notes" aria-live="polite" className="flex-1">
+          {loading ? (
+            <NoteSkeletonGrid />
+          ) : filteredAndSortedNotes.length === 0 ? (
+            <NotesEmpty hasSearch={search.trim().length > 0} />
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {filteredAndSortedNotes.map((note) => (
+                <NoteCard
+                  key={note.id}
+                  note={note}
+                  onDelete={handleDeleteNote}
+                  onUpdate={handleUpdateNote}
+                  onTogglePin={handleTogglePin}
+                  onToggleImportant={handleToggleImportant}
+                  isRemoving={removingIds.has(note.id)}
+                />
+              ))}
+            </div>
+          )}
+        </section>
       </div>
+
+      {/* Footer */}
+      <footer className="border-t border-border">
+        <div className="mx-auto max-w-5xl px-4 py-4 sm:px-6 lg:px-8">
+          <p className="text-center text-xs text-muted-foreground">
+            {"Online Notes \u2014 Real-time cloud notes powered by Firebase"}
+          </p>
+        </div>
+      </footer>
 
       {/* Delete All Confirmation */}
       <AlertDialog
@@ -321,12 +305,12 @@ export default function NotesApp() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="border-border bg-secondary text-secondary-foreground transition-all duration-150 hover:bg-muted hover:text-foreground">
+            <AlertDialogCancel className="border-border bg-secondary text-secondary-foreground transition-all duration-200 hover:bg-muted hover:text-foreground hover:scale-[1.02] active:scale-[0.98]">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDeleteAll}
-              className="bg-destructive text-destructive-foreground transition-all duration-150 hover:bg-destructive/90 hover:shadow-md"
+              className="bg-destructive text-destructive-foreground shadow-md shadow-destructive/20 transition-all duration-200 hover:bg-destructive/90 hover:shadow-lg hover:shadow-destructive/30 hover:scale-[1.02] active:scale-[0.98]"
             >
               Delete All
             </AlertDialogAction>
