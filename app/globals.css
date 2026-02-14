@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 240 15% 8%;
+    --foreground: 210 20% 95%;
+    --card: 240 12% 12%;
+    --card-foreground: 210 20% 95%;
+    --popover: 240 12% 12%;
+    --popover-foreground: 210 20% 95%;
+    --primary: 190 95% 55%;
+    --primary-foreground: 240 15% 8%;
+    --secondary: 240 10% 18%;
+    --secondary-foreground: 210 20% 90%;
+    --muted: 240 10% 16%;
+    --muted-foreground: 215 15% 55%;
+    --accent: 190 95% 55%;
+    --accent-foreground: 240 15% 8%;
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 240 8% 20%;
+    --input: 240 8% 20%;
+    --ring: 190 95% 55%;
+    --chart-1: 190 95% 55%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --radius: 0.75rem;
+    --warning: 38 92% 50%;
+    --warning-foreground: 240 15% 8%;
+    --sidebar-background: 240 12% 10%;
+    --sidebar-foreground: 210 20% 90%;
+    --sidebar-primary: 190 95% 55%;
+    --sidebar-primary-foreground: 240 15% 8%;
+    --sidebar-accent: 240 10% 16%;
+    --sidebar-accent-foreground: 210 20% 90%;
+    --sidebar-border: 240 8% 20%;
+    --sidebar-ring: 190 95% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@keyframes note-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes note-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 hsl(190 95% 55% / 0);
+  }
+  50% {
+    box-shadow: 0 0 20px 4px hsl(190 95% 55% / 0.15);
+  }
+}
+
+.animate-note-in {
+  animation: note-in 0.35s ease-out forwards;
+}
+
+.animate-note-out {
+  animation: note-out 0.25s ease-in forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
