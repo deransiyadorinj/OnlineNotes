@@ -110,10 +110,10 @@ export default function NotesApp() {
         important: false,
         createdAt: serverTimestamp(),
       });
-      toast.success("Note added");
+      toast.success("Note created successfully");
     } catch (error) {
       console.error("Error adding note:", error);
-      toast.error("Failed to add note");
+      toast.error("Failed to create note");
     } finally {
       setAddingNote(false);
     }
@@ -146,7 +146,7 @@ export default function NotesApp() {
         batch.delete(doc(db, "notes", note.id));
       });
       await batch.commit();
-      toast.success("All notes deleted");
+      toast.success(`Deleted ${notes.length} notes`);
     } catch (error) {
       console.error("Error deleting all notes:", error);
       toast.error("Failed to delete all notes");
@@ -167,7 +167,6 @@ export default function NotesApp() {
   const handleTogglePin = useCallback(async (id: string, pinned: boolean) => {
     try {
       await updateDoc(doc(db, "notes", id), { pinned });
-      toast.success(pinned ? "Note pinned" : "Note unpinned");
     } catch (error) {
       console.error("Error toggling pin:", error);
       toast.error("Failed to update note");
@@ -178,9 +177,6 @@ export default function NotesApp() {
     async (id: string, important: boolean) => {
       try {
         await updateDoc(doc(db, "notes", id), { important });
-        toast.success(
-          important ? "Marked as important" : "Removed importance"
-        );
       } catch (error) {
         console.error("Error toggling importance:", error);
         toast.error("Failed to update note");
@@ -205,7 +201,7 @@ export default function NotesApp() {
             }`
         )
         .join("\n\n");
-      filename = "notes.txt";
+      filename = "online-notes-export.txt";
       mimeType = "text/plain";
     } else {
       content = JSON.stringify(
@@ -220,7 +216,7 @@ export default function NotesApp() {
         null,
         2
       );
-      filename = "notes.json";
+      filename = "online-notes-export.json";
       mimeType = "application/json";
     }
 
@@ -231,53 +227,80 @@ export default function NotesApp() {
     a.download = filename;
     a.click();
     URL.revokeObjectURL(url);
-    toast.success(`Notes exported as ${format.toUpperCase()}`);
+    toast.success(`Exported as ${format.toUpperCase()}`);
   }
+
+  const pinnedCount = notes.filter((n) => n.pinned).length;
+  const importantCount = notes.filter((n) => n.important).length;
 
   return (
     <main className="min-h-screen bg-background">
       <div className="mx-auto max-w-4xl">
         <AppHeader noteCount={notes.length} isConnected={isConnected} />
 
-        <div className="flex flex-col gap-6 px-4 py-6 sm:px-6">
-          {/* Note Input */}
+        <div className="flex flex-col gap-8 px-4 py-8 sm:px-6">
+          {/* Create Note Section */}
           <section aria-label="Create a new note">
             <NoteInput onAdd={handleAddNote} isLoading={addingNote} />
           </section>
 
-          {/* Search and Toolbar */}
-          <div className="flex flex-col gap-3">
-            <SearchBar value={search} onChange={setSearch} />
-            <NotesToolbar
-              onDeleteAll={() => setShowDeleteAllDialog(true)}
-              onExport={handleExport}
-              sortMode={sortMode}
-              onSortChange={setSortMode}
-              noteCount={notes.length}
-            />
-          </div>
-
-          {/* Notes Grid */}
-          <section aria-label="Your notes" aria-live="polite">
-            {loading ? (
-              <NoteSkeletonGrid />
-            ) : filteredAndSortedNotes.length === 0 ? (
-              <NotesEmpty hasSearch={search.trim().length > 0} />
-            ) : (
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {filteredAndSortedNotes.map((note) => (
-                  <NoteCard
-                    key={note.id}
-                    note={note}
-                    onDelete={handleDeleteNote}
-                    onUpdate={handleUpdateNote}
-                    onTogglePin={handleTogglePin}
-                    onToggleImportant={handleToggleImportant}
-                    isRemoving={removingIds.has(note.id)}
-                  />
-                ))}
+          {/* Notes Section */}
+          <section aria-label="Your notes">
+            {/* Stats bar */}
+            {!loading && notes.length > 0 && (
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <span className="rounded bg-secondary px-2 py-0.5 font-medium text-secondary-foreground">
+                    {notes.length} {notes.length === 1 ? "note" : "notes"}
+                  </span>
+                  {pinnedCount > 0 && (
+                    <span className="rounded bg-primary/10 px-2 py-0.5 font-medium text-primary">
+                      {pinnedCount} pinned
+                    </span>
+                  )}
+                  {importantCount > 0 && (
+                    <span className="rounded bg-amber-500/10 px-2 py-0.5 font-medium text-amber-400">
+                      {importantCount} important
+                    </span>
+                  )}
+                </div>
               </div>
             )}
+
+            {/* Search and Toolbar */}
+            <div className="flex flex-col gap-3">
+              <SearchBar value={search} onChange={setSearch} />
+              <NotesToolbar
+                onDeleteAll={() => setShowDeleteAllDialog(true)}
+                onExport={handleExport}
+                sortMode={sortMode}
+                onSortChange={setSortMode}
+                noteCount={notes.length}
+              />
+            </div>
+
+            {/* Notes Grid */}
+            <div className="mt-5" aria-live="polite">
+              {loading ? (
+                <NoteSkeletonGrid />
+              ) : filteredAndSortedNotes.length === 0 ? (
+                <NotesEmpty hasSearch={search.trim().length > 0} />
+              ) : (
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {filteredAndSortedNotes.map((note) => (
+                    <NoteCard
+                      key={note.id}
+                      note={note}
+                      onDelete={handleDeleteNote}
+                      onUpdate={handleUpdateNote}
+                      onTogglePin={handleTogglePin}
+                      onToggleImportant={handleToggleImportant}
+                      isRemoving={removingIds.has(note.id)}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
           </section>
         </div>
       </div>
@@ -293,17 +316,17 @@ export default function NotesApp() {
               Delete all notes?
             </AlertDialogTitle>
             <AlertDialogDescription className="text-muted-foreground">
-              This will permanently delete all {notes.length} notes from your
-              account. This action cannot be undone.
+              This will permanently delete all {notes.length} notes. This action
+              cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="border-border bg-secondary text-secondary-foreground hover:bg-muted hover:text-foreground">
+            <AlertDialogCancel className="border-border bg-secondary text-secondary-foreground transition-all duration-150 hover:bg-muted hover:text-foreground">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDeleteAll}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              className="bg-destructive text-destructive-foreground transition-all duration-150 hover:bg-destructive/90 hover:shadow-md"
             >
               Delete All
             </AlertDialogAction>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Trash2, Download, ArrowUpDown } from "lucide-react";
+import { Trash2, Download, ArrowUpDown, FileText, FileJson } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -41,7 +41,7 @@ export function NotesToolbar({
       : "Important first";
 
   return (
-    <TooltipProvider delayDuration={300}>
+    <TooltipProvider delayDuration={200}>
       <div className="flex flex-wrap items-center gap-2">
         <Tooltip>
           <TooltipTrigger asChild>
@@ -49,7 +49,7 @@ export function NotesToolbar({
               variant="outline"
               size="sm"
               onClick={cycleSortMode}
-              className="h-8 border-border bg-secondary text-xs text-secondary-foreground hover:bg-muted hover:text-foreground"
+              className="h-9 rounded-lg border-border bg-card text-xs font-medium text-secondary-foreground transition-all duration-200 hover:bg-secondary hover:text-foreground hover:border-primary/30 hover:scale-[1.02] active:scale-[0.98]"
             >
               <ArrowUpDown className="mr-1.5 h-3.5 w-3.5" />
               {sortLabel}
@@ -69,14 +69,14 @@ export function NotesToolbar({
               size="sm"
               onClick={() => onExport("txt")}
               disabled={noteCount === 0}
-              className="h-8 border-border bg-secondary text-xs text-secondary-foreground hover:bg-muted hover:text-foreground"
+              className="h-9 rounded-lg border-border bg-card text-xs font-medium text-secondary-foreground transition-all duration-200 hover:bg-secondary hover:text-foreground hover:border-primary/30 hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100"
             >
-              <Download className="mr-1.5 h-3.5 w-3.5" />
-              Export .txt
+              <FileText className="mr-1.5 h-3.5 w-3.5" />
+              .txt
             </Button>
           </TooltipTrigger>
           <TooltipContent className="bg-popover text-popover-foreground">
-            <p>Download notes as text file</p>
+            <p>Export as text file</p>
           </TooltipContent>
         </Tooltip>
 
@@ -87,14 +87,14 @@ export function NotesToolbar({
               size="sm"
               onClick={() => onExport("json")}
               disabled={noteCount === 0}
-              className="h-8 border-border bg-secondary text-xs text-secondary-foreground hover:bg-muted hover:text-foreground"
+              className="h-9 rounded-lg border-border bg-card text-xs font-medium text-secondary-foreground transition-all duration-200 hover:bg-secondary hover:text-foreground hover:border-primary/30 hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100"
             >
-              <Download className="mr-1.5 h-3.5 w-3.5" />
-              Export .json
+              <FileJson className="mr-1.5 h-3.5 w-3.5" />
+              .json
             </Button>
           </TooltipTrigger>
           <TooltipContent className="bg-popover text-popover-foreground">
-            <p>Download notes as JSON file</p>
+            <p>Export as JSON file</p>
           </TooltipContent>
         </Tooltip>
 
@@ -105,7 +105,7 @@ export function NotesToolbar({
               size="sm"
               onClick={onDeleteAll}
               disabled={noteCount === 0}
-              className="h-8 border-destructive/30 bg-destructive/10 text-xs text-destructive hover:bg-destructive/20 hover:text-destructive"
+              className="h-9 rounded-lg border-destructive/30 bg-destructive/10 text-xs font-medium text-destructive transition-all duration-200 hover:bg-destructive/20 hover:border-destructive/50 hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100"
             >
               <Trash2 className="mr-1.5 h-3.5 w-3.5" />
               Delete All

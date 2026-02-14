@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import { Plus, Loader2 } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
@@ -12,6 +12,7 @@ interface NoteInputProps {
 
 export function NoteInput({ onAdd, isLoading }: NoteInputProps) {
   const [text, setText] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -29,27 +30,41 @@ export function NoteInput({ onAdd, isLoading }: NoteInputProps) {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-      <div className="relative">
+      <div
+        className={`relative rounded-xl border transition-all duration-300 ${
+          isFocused
+            ? "border-primary/50 shadow-lg shadow-primary/5 ring-1 ring-primary/20"
+            : "border-border hover:border-muted-foreground/30"
+        }`}
+      >
         <Textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Write your note here..."
-          className="min-h-[100px] resize-none bg-secondary text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-primary"
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          placeholder="What's on your mind? Write a note..."
+          className="min-h-[120px] resize-none border-0 bg-card text-sm leading-relaxed text-card-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
           aria-label="Note text"
         />
-        <span className="absolute bottom-2 right-3 text-[10px] text-muted-foreground">
-          {"Ctrl + Enter to save"}
-        </span>
+        <div className="flex items-center justify-between border-t border-border/50 px-4 py-2.5">
+          <span className="text-[11px] text-muted-foreground">
+            {"Ctrl + Enter to save"}
+          </span>
+          <Button
+            type="submit"
+            disabled={isLoading || text.trim() === ""}
+            className="bg-primary text-primary-foreground shadow-md shadow-primary/20 transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] disabled:shadow-none disabled:hover:scale-100"
+          >
+            {isLoading ? (
+              <Loader2 className="mr-1.5 h-4 w-4 animate-spin" />
+            ) : (
+              <Plus className="mr-1.5 h-4 w-4" />
+            )}
+            Create Note
+          </Button>
+        </div>
       </div>
-      <Button
-        type="submit"
-        disabled={isLoading || text.trim() === ""}
-        className="self-end bg-primary text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.98]"
-      >
-        <Plus className="mr-1.5 h-4 w-4" />
-        Add Note
-      </Button>
     </form>
   );
 }

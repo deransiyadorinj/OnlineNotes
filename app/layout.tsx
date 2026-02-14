@@ -8,12 +8,12 @@ const _inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const _jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains-mono' })
 
 export const metadata: Metadata = {
-  title: 'NoteVault - Premium Notes App',
-  description: 'A professional, real-time cloud notes application with Firebase integration',
+  title: 'Online Notes',
+  description: 'A professional real-time cloud notes application',
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0d1117',
+  themeColor: '#0f1118',
 }
 
 export default function RootLayout({
@@ -30,8 +30,8 @@ export default function RootLayout({
           position="bottom-right"
           toastOptions={{
             style: {
-              background: 'hsl(240 12% 12%)',
-              border: '1px solid hsl(240 8% 20%)',
+              background: 'hsl(228 12% 10%)',
+              border: '1px solid hsl(228 8% 16%)',
               color: 'hsl(210 20% 95%)',
             },
           }}
