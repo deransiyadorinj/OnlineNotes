@@ -33,7 +33,7 @@ export function NoteInput({ onAdd, isLoading }: NoteInputProps) {
       <div
         className={`relative rounded-xl border transition-all duration-300 ${
           isFocused
-            ? "border-primary/50 shadow-lg shadow-primary/5 ring-1 ring-primary/20"
+            ? "border-primary/40 shadow-lg shadow-primary/10 ring-1 ring-primary/25"
             : "border-border hover:border-muted-foreground/30"
         }`}
       >
@@ -54,7 +54,7 @@ export function NoteInput({ onAdd, isLoading }: NoteInputProps) {
           <Button
             type="submit"
             disabled={isLoading || text.trim() === ""}
-            className="bg-primary text-primary-foreground shadow-md shadow-primary/20 transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] disabled:shadow-none disabled:hover:scale-100"
+            className="bg-gradient-to-r from-primary to-accent text-white font-semibold shadow-lg shadow-primary/25 transition-all duration-300 hover:shadow-xl hover:shadow-accent/30 hover:scale-[1.03] hover:brightness-110 active:scale-[0.97] disabled:opacity-50 disabled:shadow-none disabled:hover:scale-100 disabled:hover:brightness-100"
           >
             {isLoading ? (
               <Loader2 className="mr-1.5 h-4 w-4 animate-spin" />

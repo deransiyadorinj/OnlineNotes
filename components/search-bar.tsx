@@ -18,7 +18,7 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
         placeholder="Search your notes..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-11 rounded-xl border-border bg-card pl-10 pr-10 text-sm text-card-foreground placeholder:text-muted-foreground transition-all duration-300 focus-visible:ring-1 focus-visible:ring-primary focus-visible:border-primary/50 hover:border-muted-foreground/30"
+        className="h-11 rounded-xl border-border bg-card pl-10 pr-10 text-sm text-card-foreground placeholder:text-muted-foreground transition-all duration-300 focus-visible:ring-1 focus-visible:ring-primary focus-visible:border-primary/40 focus-visible:shadow-md focus-visible:shadow-primary/10 hover:border-muted-foreground/30"
       />
       {value && (
         <Button

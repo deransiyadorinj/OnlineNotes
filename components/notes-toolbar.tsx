@@ -49,7 +49,7 @@ export function NotesToolbar({
               variant="outline"
               size="sm"
               onClick={cycleSortMode}
-              className="h-9 rounded-lg border-border bg-card text-xs font-medium text-secondary-foreground transition-all duration-200 hover:bg-secondary hover:text-foreground hover:border-primary/30 hover:scale-[1.02] active:scale-[0.98]"
+              className="h-9 rounded-lg border-border bg-card text-xs font-medium text-secondary-foreground transition-all duration-200 hover:bg-primary/10 hover:text-primary hover:border-primary/30 hover:shadow-md hover:shadow-primary/10 hover:scale-[1.03] active:scale-[0.97]"
             >
               <ArrowUpDown className="mr-1.5 h-3.5 w-3.5" />
               {sortLabel}
@@ -69,7 +69,7 @@ export function NotesToolbar({
               size="sm"
               onClick={() => onExport("txt")}
               disabled={noteCount === 0}
-              className="h-9 rounded-lg border-border bg-card text-xs font-medium text-secondary-foreground transition-all duration-200 hover:bg-secondary hover:text-foreground hover:border-primary/30 hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100"
+              className="h-9 rounded-lg border-border bg-card text-xs font-medium text-secondary-foreground transition-all duration-200 hover:bg-primary/10 hover:text-primary hover:border-primary/30 hover:shadow-md hover:shadow-primary/10 hover:scale-[1.03] active:scale-[0.97] disabled:hover:scale-100 disabled:hover:bg-card disabled:hover:text-secondary-foreground disabled:hover:shadow-none"
             >
               <FileText className="mr-1.5 h-3.5 w-3.5" />
               .txt
@@ -87,7 +87,7 @@ export function NotesToolbar({
               size="sm"
               onClick={() => onExport("json")}
               disabled={noteCount === 0}
-              className="h-9 rounded-lg border-border bg-card text-xs font-medium text-secondary-foreground transition-all duration-200 hover:bg-secondary hover:text-foreground hover:border-primary/30 hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100"
+              className="h-9 rounded-lg border-border bg-card text-xs font-medium text-secondary-foreground transition-all duration-200 hover:bg-primary/10 hover:text-primary hover:border-primary/30 hover:shadow-md hover:shadow-primary/10 hover:scale-[1.03] active:scale-[0.97] disabled:hover:scale-100 disabled:hover:bg-card disabled:hover:text-secondary-foreground disabled:hover:shadow-none"
             >
               <FileJson className="mr-1.5 h-3.5 w-3.5" />
               .json
@@ -105,7 +105,7 @@ export function NotesToolbar({
               size="sm"
               onClick={onDeleteAll}
               disabled={noteCount === 0}
-              className="h-9 rounded-lg border-destructive/30 bg-destructive/10 text-xs font-medium text-destructive transition-all duration-200 hover:bg-destructive/20 hover:border-destructive/50 hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100"
+              className="h-9 rounded-lg border-destructive/30 bg-destructive/10 text-xs font-semibold text-destructive shadow-sm transition-all duration-200 hover:bg-destructive hover:text-destructive-foreground hover:border-destructive hover:shadow-lg hover:shadow-destructive/25 hover:scale-[1.03] active:scale-[0.97] disabled:hover:scale-100 disabled:hover:bg-destructive/10 disabled:hover:text-destructive disabled:hover:border-destructive/30 disabled:hover:shadow-sm"
             >
               <Trash2 className="mr-1.5 h-3.5 w-3.5" />
               Delete All

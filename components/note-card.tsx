@@ -127,7 +127,7 @@ export function NoteCard({
                 size="sm"
                 onClick={handleSave}
                 disabled={editText.trim() === ""}
-                className="h-8 bg-primary px-3 text-xs text-primary-foreground shadow-sm shadow-primary/20 transition-all duration-200 hover:bg-primary/90 hover:shadow-md hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98]"
+                className="h-8 bg-gradient-to-r from-primary to-accent px-3 text-xs text-white font-semibold shadow-sm shadow-primary/20 transition-all duration-200 hover:shadow-md hover:shadow-accent/30 hover:scale-[1.03] hover:brightness-110 active:scale-[0.97]"
               >
                 <Check className="mr-1 h-3 w-3" />
                 Save
@@ -156,8 +156,8 @@ export function NoteCard({
                         size="icon"
                         className={`h-7 w-7 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95 ${
                           note.pinned
-                            ? "bg-primary/15 text-primary hover:bg-primary/25"
-                            : "text-muted-foreground hover:bg-secondary hover:text-primary"
+                            ? "bg-primary/15 text-primary hover:bg-primary/25 shadow-sm shadow-primary/10"
+                            : "text-muted-foreground hover:bg-primary/10 hover:text-primary hover:shadow-sm hover:shadow-primary/10"
                         }`}
                         onClick={() => onTogglePin(note.id, !note.pinned)}
                         aria-label={note.pinned ? "Unpin note" : "Pin note"}
@@ -184,8 +184,8 @@ export function NoteCard({
                         size="icon"
                         className={`h-7 w-7 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95 ${
                           note.important
-                            ? "bg-accent/15 text-accent hover:bg-accent/25"
-                            : "text-muted-foreground hover:bg-secondary hover:text-accent"
+                            ? "bg-accent/15 text-accent hover:bg-accent/25 shadow-sm shadow-accent/10"
+                            : "text-muted-foreground hover:bg-accent/10 hover:text-accent hover:shadow-sm hover:shadow-accent/10"
                         }`}
                         onClick={() =>
                           onToggleImportant(note.id, !note.important)
@@ -220,7 +220,7 @@ export function NoteCard({
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-7 w-7 rounded-lg text-muted-foreground transition-all duration-200 hover:scale-110 hover:bg-secondary hover:text-foreground active:scale-95"
+                        className="h-7 w-7 rounded-lg text-muted-foreground transition-all duration-200 hover:scale-110 hover:bg-primary/10 hover:text-primary hover:shadow-sm hover:shadow-primary/10 active:scale-95"
                         onClick={() => setIsEditing(true)}
                         aria-label="Edit note"
                       >
@@ -240,7 +240,7 @@ export function NoteCard({
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-7 w-7 rounded-lg text-muted-foreground transition-all duration-200 hover:scale-110 hover:bg-destructive/15 hover:text-destructive active:scale-95"
+                        className="h-7 w-7 rounded-lg text-muted-foreground transition-all duration-200 hover:scale-110 hover:bg-destructive/15 hover:text-destructive hover:shadow-sm hover:shadow-destructive/20 active:scale-95"
                         onClick={() => onDelete(note.id)}
                         aria-label="Delete note"
                       >

@@ -10,41 +10,41 @@
 
 @layer base {
   :root {
-    --background: 228 14% 7%;
-    --foreground: 210 20% 95%;
-    --card: 228 12% 10%;
-    --card-foreground: 210 20% 95%;
-    --popover: 228 12% 10%;
-    --popover-foreground: 210 20% 95%;
-    --primary: 192 90% 50%;
-    --primary-foreground: 228 14% 7%;
-    --secondary: 228 10% 14%;
-    --secondary-foreground: 210 15% 80%;
-    --muted: 228 10% 13%;
-    --muted-foreground: 215 12% 48%;
-    --accent: 192 90% 50%;
-    --accent-foreground: 228 14% 7%;
+    --background: 230 25% 7%;
+    --foreground: 220 20% 95%;
+    --card: 230 22% 11%;
+    --card-foreground: 220 20% 95%;
+    --popover: 230 22% 11%;
+    --popover-foreground: 220 20% 95%;
+    --primary: 220 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 230 18% 16%;
+    --secondary-foreground: 220 15% 82%;
+    --muted: 230 18% 14%;
+    --muted-foreground: 220 12% 50%;
+    --accent: 330 85% 60%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 55%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 228 8% 16%;
-    --input: 228 8% 16%;
-    --ring: 192 90% 50%;
-    --chart-1: 192 90% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 230 14% 18%;
+    --input: 230 14% 18%;
+    --ring: 220 91% 60%;
+    --chart-1: 220 91% 60%;
+    --chart-2: 330 85% 60%;
+    --chart-3: 260 70% 60%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
     --radius: 0.75rem;
     --warning: 38 92% 50%;
-    --warning-foreground: 228 14% 7%;
-    --sidebar-background: 228 12% 8%;
-    --sidebar-foreground: 210 20% 90%;
-    --sidebar-primary: 192 90% 50%;
-    --sidebar-primary-foreground: 228 14% 7%;
-    --sidebar-accent: 228 10% 14%;
-    --sidebar-accent-foreground: 210 20% 90%;
-    --sidebar-border: 228 8% 16%;
-    --sidebar-ring: 192 90% 50%;
+    --warning-foreground: 230 25% 7%;
+    --sidebar-background: 230 22% 9%;
+    --sidebar-foreground: 220 20% 90%;
+    --sidebar-primary: 220 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 230 18% 16%;
+    --sidebar-accent-foreground: 220 20% 90%;
+    --sidebar-border: 230 14% 18%;
+    --sidebar-ring: 220 91% 60%;
   }
 }
 
@@ -85,4 +85,19 @@
 
 .animate-note-out {
   animation: note-out 0.2s ease-in forwards;
+}
+
+.glass {
+  background: hsla(230, 22%, 11%, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }

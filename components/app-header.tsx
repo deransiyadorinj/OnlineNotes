@@ -12,7 +12,7 @@ export function AppHeader({ noteCount, isConnected }: AppHeaderProps) {
     <header className="sticky top-0 z-20 glass border-b border-border">
       <div className="flex items-center justify-between px-6 py-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/15 ring-1 ring-primary/20 transition-all duration-300 hover:bg-primary/25 hover:ring-primary/40 hover:scale-105">
+          <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 ring-1 ring-primary/25 transition-all duration-300 hover:from-primary/30 hover:to-accent/30 hover:ring-primary/50 hover:scale-110">
             <BookOpen className="h-5 w-5 text-primary" />
           </div>
           <div>

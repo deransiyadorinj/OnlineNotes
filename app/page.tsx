@@ -305,12 +305,12 @@ export default function NotesApp() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="border-border bg-secondary text-secondary-foreground transition-all duration-200 hover:bg-muted hover:text-foreground hover:scale-[1.02] active:scale-[0.98]">
+            <AlertDialogCancel className="border-border bg-secondary text-secondary-foreground transition-all duration-200 hover:bg-primary/10 hover:text-primary hover:border-primary/30 hover:scale-[1.03] active:scale-[0.97]">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDeleteAll}
-              className="bg-destructive text-destructive-foreground shadow-md shadow-destructive/20 transition-all duration-200 hover:bg-destructive/90 hover:shadow-lg hover:shadow-destructive/30 hover:scale-[1.02] active:scale-[0.98]"
+              className="bg-destructive text-destructive-foreground font-semibold shadow-md shadow-destructive/25 transition-all duration-200 hover:bg-destructive/90 hover:shadow-lg hover:shadow-destructive/40 hover:scale-[1.03] hover:brightness-110 active:scale-[0.97]"
             >
               Delete All
             </AlertDialogAction>
