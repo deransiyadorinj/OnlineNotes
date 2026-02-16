@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0e18" />
+  <meta name="description" content="Online Notes - A professional real-time cloud notes application" />
+  <title>Online Notes</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: hsl(230, 25%, 7%);
+      color: hsl(220, 20%, 95%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .loader-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .logo-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, hsl(220, 91%, 60%) 0%, hsl(330, 85%, 60%) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 0 24px hsla(330, 85%, 60%, 0.35),
+        0 0 48px hsla(220, 91%, 60%, 0.2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .logo-icon svg {
+      width: 28px;
+      height: 28px;
+      color: white;
+    }
+
+    .title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      background: linear-gradient(135deg, hsl(220, 91%, 60%), hsl(330, 85%, 60%));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 0.875rem;
+      color: hsl(220, 12%, 50%);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 500;
+    }
+
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid hsl(230, 14%, 18%);
+      border-top-color: hsl(220, 91%, 60%);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    .message {
+      font-size: 0.8rem;
+      color: hsl(220, 12%, 50%);
+    }
+
+    .message a {
+      color: hsl(220, 91%, 60%);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .message a:hover {
+      color: hsl(330, 85%, 60%);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow:
+          0 0 24px hsla(330, 85%, 60%, 0.35),
+          0 0 48px hsla(220, 91%, 60%, 0.2);
+      }
+      50% {
+        box-shadow:
+          0 0 32px hsla(330, 85%, 60%, 0.5),
+          0 0 64px hsla(220, 91%, 60%, 0.3);
+      }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="loader-container">
+    <div class="logo-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+      </svg>
+    </div>
+    <h1 class="title">Online Notes</h1>
+    <p class="subtitle">Cloud Synced</p>
+    <div class="spinner" aria-label="Loading"></div>
+    <p class="message">Loading app&hellip; If it doesn&rsquo;t load, <a href="/">click here</a>.</p>
+  </div>
+
+  <script>
+    // Redirect to the Next.js app after a brief moment
+    // This page acts as a static fallback / loading screen
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        if (window.location.pathname === '/index.html') {
+          window.location.href = '/';
+        }
+      }, 1500);
+    });
+  </script>
+</body>
+</html>
