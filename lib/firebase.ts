@@ -15,12 +15,12 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBrpNsvbr_1QkWFprqYOJbnBgkcMutpPQQ",
-  authDomain: "simplenotesapp-9d777.firebaseapp.com",
-  projectId: "simplenotesapp-9d777",
-  storageBucket: "simplenotesapp-9d777.firebasestorage.app",
-  messagingSenderId: "7957661856",
-  appId: "1:7957661856:web:a631edb5fd9ff800fb61c5",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyBrpNsvbr_1QkWFprqYOJbnBgkcMutpPQQ",
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "simplenotesapp-9d777.firebaseapp.com",
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "simplenotesapp-9d777",
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "simplenotesapp-9d777.firebasestorage.app",
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "7957661856",
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "1:7957661856:web:a631edb5fd9ff800fb61c5",
 };
 
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
